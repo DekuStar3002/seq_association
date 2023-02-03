@@ -1,4 +1,5 @@
 const express = require('express');
+const axios = require('axios');
 const app = express();
 app.use(express.json());
 const db = require('./database/models');
@@ -45,6 +46,8 @@ const findProfileUsingUserId = async () => {
 
 const getTodoData = async () => {
     try {
+        const post = await axios.get("https://jsonplaceholder.typicode.com/posts/1");
+        console.log(post.data);
         const todo = await db.Todo.findOne({ where: { fullname: 'todo1', user_id: 6 }, include: ['User'] });
         return todo;
     } catch (error) {
